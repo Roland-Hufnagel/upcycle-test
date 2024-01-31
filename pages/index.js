@@ -17,6 +17,7 @@ const Container = styled.div`
   flex-direction: column;
   gap: 1rem;
   min-height: 325px;
+  width: 80%;
 `;
 
 const StyledCount = styled.div`
@@ -25,14 +26,14 @@ const StyledCount = styled.div`
   gap: 0.2rem;
   color: #fafafa;
   margin-bottom: -1vh;
-  @media screen and (min-height: 800px) {
+  /* @media screen and (min-height: 800px) {
     font-size: 1.3rem;
   }
   @media screen and (min-width: 601px) {
     background-color: #a97bb5;
     border-radius: 1rem;
     padding: 0.5rem;
-  }
+  } */
 `;
 
 const CountDiv = styled.div`
@@ -56,26 +57,28 @@ const CardList = styled.ul`
   list-style-type: none;
   padding: 0;
   align-self: center;
+  width: 100%;
 `;
 
 const CardListItem = styled.li`
   margin: auto;
-  width: 63vw;
+  width: 100%;
   min-height: 325px;
-  height: 50vh;
-  flex-shrink: 0;
+  height: 300px;
+  /* flex-shrink: 0; */
   background-color: #fafafa;
   align-self: flex-end;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 1rem;
   padding: 0.7rem;
   position: relative;
+  border: 2px solid black;
 
-  @media screen and (min-width: 1024px) {
+  /* @media screen and (min-width: 1024px) {
     margin-top: 2rem;
     min-height: 400px;
     width: 30vw;
-  }
+  } */
 `;
 
 const LinkWrapper = styled(Link)`
@@ -84,7 +87,7 @@ const LinkWrapper = styled(Link)`
 `;
 
 const ButtonBox = styled.div`
-  /* border: 1px solid black; */
+  border: 1px solid black;
 `;
 
 const PaginationPrevButton = styled.button`
@@ -94,10 +97,20 @@ const PaginationPrevButton = styled.button`
   margin-top: 10px;
 `;
 const PaginationNextButton = styled.button`
-  position: fixed;
-  bottom: 10rem;
+  position: absolute;
   right: 0;
+  bottom: 0;
+  height: 50%;
+  width: 50px;
   margin-top: 10px;
+  border: 4px solid blue;
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 0.8rem;
+  transition: transform 0.25s;
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
 `;
 
 const StyledIcon = styled(FontAwesomeIcon)`
@@ -123,9 +136,9 @@ const DummyPrev = styled.div`
   &:hover {
     transform: scale(1.1);
   }
-  @media screen and (min-width: 1024px) {
+  /* @media screen and (min-width: 1024px) {
     width: 4vw;
-  }
+  } */
 `;
 
 const DummyNext = styled.div`
@@ -135,7 +148,7 @@ const DummyNext = styled.div`
   background-color: #fafafa;
   /* height: 50vh; */
   min-height: 325px;
-  width: 9vw;
+  width: 50px;
   border-top-left-radius: 1rem;
   border-bottom-left-radius: 0.8rem;
   position: fixed;
@@ -146,9 +159,9 @@ const DummyNext = styled.div`
   &:hover {
     transform: scale(1.1);
   }
-  @media screen and (min-width: 1024px) {
+  /* @media screen and (min-width: 1024px) {
     width: 4vw;
-  }
+  } */
 `;
 
 const ideasPerPage = 1;
@@ -172,6 +185,7 @@ export default function HomePage({ onToggleFavourites, favouriteIdeas }) {
     (currentPage - 1) * ideasPerPage,
     currentPage * ideasPerPage
   );
+  console.log(paginatedIdeas);
   const fuse = new Fuse(ideas, {
     keys: ["hashtags", "title"],
   });
@@ -201,7 +215,10 @@ export default function HomePage({ onToggleFavourites, favouriteIdeas }) {
       <CardList>
         {suggestions.length > 0 && searchValue
           ? suggestions.map((suggestion) => (
-              <LinkWrapper href={`/ideaDetails/${suggestion.item._id}`}>
+              <LinkWrapper
+                key={suggestion?.id}
+                href={`/ideaDetails/${suggestion.item._id}`}
+              >
                 <CardListItem key={suggestion.item._id}>
                   <Card
                     image={suggestion.item.image}
@@ -218,7 +235,7 @@ export default function HomePage({ onToggleFavourites, favouriteIdeas }) {
               </LinkWrapper>
             ))
           : paginatedIdeas.map((idea) => (
-              <LinkWrapper href={`/ideaDetails/${idea._id}`}>
+              <LinkWrapper key={idea.id} href={`/ideaDetails/${idea._id}`}>
                 <CardListItem key={idea._id}>
                   <Card
                     image={idea.image}
@@ -252,9 +269,9 @@ export default function HomePage({ onToggleFavourites, favouriteIdeas }) {
             <PaginationNextButton
               onClick={() => setCurrentPage(currentPage + 1)}
             >
-              <DummyNext>
+              
                 <StyledIcon icon={faChevronRight} />
-              </DummyNext>
+             
             </PaginationNextButton>
           ) : null}
         </ButtonBox>

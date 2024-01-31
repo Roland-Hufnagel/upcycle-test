@@ -17,20 +17,20 @@ const SearchContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   border-radius: 15rem;
-  width: 70vw;
+  /* width: 70vw; */
   height: 5vh;
   background-color: #eeeeee;
   padding: 0.2rem;
-  @media screen and (min-width: 600px) {
+  /* @media screen and (min-width: 600px) {
     width: 50vw;
   }
   @media screen and (min-width: 1024px) {
     width: 40vw;
-  }
+  } */
 `;
 const StyledSearchbar = styled.input`
   border: none;
-  width: 60vw;
+  /* width: 60vw; */
   padding: 0.4rem;
   padding-left: 1rem;
   background: transparent;
@@ -61,7 +61,7 @@ const StyledContainer = styled.div`
   z-index: 1;
   overflow-y: auto;
   top: 2rem;
-  width: 70vw;
+  /* width: 70vw; */
   background-color: white;
   /* @media screen and (min-width: 601px) {
     top: 10.2rem;
